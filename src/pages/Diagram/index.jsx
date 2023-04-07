@@ -88,7 +88,7 @@ export const Diagram = () => {
         setProjects([...projects_copy]);
         localStorage.setItem("diagrams", JSON.stringify(projects_copy));
     };
-
+    
     return (
         <>
             <header className="header">
