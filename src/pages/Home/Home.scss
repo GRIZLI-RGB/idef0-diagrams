@@ -1,0 +1,13 @@
+.home {
+    padding: 20vh 20vw 0 20vw;
+    &__title {
+        font-size: 24px;
+        font-weight: 700;
+    }
+    &__items {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 12px;
+        margin-top: 30px;
+    }
+}
