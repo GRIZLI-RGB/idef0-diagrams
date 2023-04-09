@@ -89,6 +89,7 @@ export const Diagram = () => {
         let projects_copy = [...projects].filter(({ id }) => id.toString() !== params.id.toString());
         setProjects([...projects_copy]);
         localStorage.setItem("diagrams", JSON.stringify(projects_copy));
+        localStorage.removeItem(`diagram-${params.id}`);
     };
     
     return (
