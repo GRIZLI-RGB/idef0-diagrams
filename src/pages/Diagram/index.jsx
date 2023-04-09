@@ -4,6 +4,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import rll from "react-leader-line";
 import { DiagramBlock } from "../../components/DiagramBlock";
 import { Popup } from "../../components/Popup";
+import { Tooltip } from 'react-tooltip'
+import { Toaster, toast } from "react-hot-toast";
 
 export const Diagram = () => {
     const params = useParams();
@@ -91,29 +93,52 @@ export const Diagram = () => {
     
     return (
         <>
+            <Toaster position="bottom-right" />
+            <Tooltip id="tooltip" style={{
+                fontSize: "14px",
+                padding: "7px",
+                zIndex: "100"
+            }} />
             <header className="header">
-                <img className="header__btn header__btn-back" src="/img/back.svg" alt="" onClick={() => navigate(-1)} />
+                <img
+                    className="header__btn header__btn-back"
+                    src="/img/back.svg" alt=""
+                    onClick={() => navigate(-1)}
+                    data-tooltip-content="Назад"
+                    data-tooltip-id="tooltip"
+                />
                 <div>
                     <h1 className="header__title">
                         {projects.map(({ id, title }) => (id.toString() === params.id.toString() ? title : ""))}
                     </h1>
                     {currentDiagrams.length !== 0 && (
                         <>
-                            <img className="header__btn header__btn-more" src="/img/more.svg" alt="" />
-                            <img className="header__btn header__btn-tree" src="/img/tree.svg" alt="" />
+                            <img className="header__btn header__btn-more" src="/img/more.svg" alt=""
+                            data-tooltip-content="Расширить диаграмму"
+                            data-tooltip-id="tooltip"
+                            />
+                            <img className="header__btn header__btn-tree" src="/img/tree.svg" alt=""
+                            data-tooltip-content="Отобразить дерево диаграмм"
+                            data-tooltip-id="tooltip"
+                            />
                         </>
                     )}
                     <img
                         className="header__btn header__btn-delete"
                         src="/img/delete.svg"
                         alt=""
+                        data-tooltip-content="Удалить проект"
+                        data-tooltip-id="tooltip"
                         onClick={() => {
                             deleteProject();
                             navigate("/");
                         }}
                     />
                 </div>
-                <button className="header__save" onClick={() => saveDiagram()}>
+                <button className="header__save" onClick={() => {
+                    saveDiagram()
+                    toast.success("Сохранено")
+                }}>
                     Сохранить
                 </button>
             </header>
@@ -140,23 +165,23 @@ export const Diagram = () => {
             <Popup active={popupCreateIDEF0} setActive={(arg) => setPopupCreateIDEF0(arg)}>
                 <div class="createIDEF0">
                     <div>
-                        <h6>Название блока</h6>
+                        <h6>Название блока<span style={{color: "#ff0000"}}>*</span></h6>
                         <input id="input-blockName" type="text" placeholder="Варить борщ" />
                     </div>
                     <div>
-                        <h6>Inputs</h6>
+                        <h6>Inputs<span style={{color: "#ff0000"}}>*</span></h6>
                         <input id="input-inputs" type="text" placeholder="Овощи, мясо, капуста" />
                     </div>
                     <div>
-                        <h6>Outputs</h6>
+                        <h6>Outputs<span style={{color: "#ff0000"}}>*</span></h6>
                         <input id="input-outputs" type="text" placeholder="Борщ, суп" />
                     </div>
                     <div>
-                        <h6>Controls</h6>
+                        <h6>Controls<span style={{color: "#ff0000"}}>*</span></h6>
                         <input id="input-controls" type="text" placeholder="Кулинарная книга, советы мамы" />
                     </div>
                     <div>
-                        <h6>Mechanisms</h6>
+                        <h6>Mechanisms<span style={{color: "#ff0000"}}>*</span></h6>
                         <input id="input-mechanisms" type="text" placeholder="Мама, бабушка" />
                     </div>
                     <button onClick={() => {

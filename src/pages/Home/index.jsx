@@ -3,6 +3,7 @@ import "./Home.scss";
 import { AddOrViewProject } from "../../components/AddOrViewProject";
 import { Popup } from "../../components/Popup";
 import { Link } from "react-router-dom";
+import { Toaster, toast } from "react-hot-toast";
 
 export const Home = () => {
     const [popupAdd, setPopupAdd] = useState(false);
@@ -12,11 +13,8 @@ export const Home = () => {
     // Забирает из локального хранилища существующие проекты
     useEffect(() => {
         localStorage.getItem("diagrams") ? setProjects(JSON.parse(localStorage.getItem("diagrams"))) : null;
+        Array.from(document.getElementsByClassName("leader-line")).forEach(el => el.remove());
     }, []);
-
-    useEffect(() => {
-        Array.from(document.getElementsByClassName("leader-line")).forEach(el => el.remove())
-    }, [])
 
     // Создаёт новый проект при нажатии на кнопку "Создать новую диаграмму"
     const createProject = () => {
@@ -25,10 +23,12 @@ export const Home = () => {
         let newProjects = [...projects, { id: lastID + 1, title }];
         setProjects(newProjects);
         localStorage.setItem("diagrams", JSON.stringify(newProjects));
+        toast.success(`Проект ${title} успешно создан`)
     };
 
     return (
         <>
+            <Toaster position="bottom-right"/>
             <div className="home">
                 <h1 className="home__title">Мои диаграммы</h1>
                 <div className="home__items">
