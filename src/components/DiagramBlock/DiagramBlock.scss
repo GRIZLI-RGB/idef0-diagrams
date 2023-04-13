@@ -4,7 +4,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 24px;
+    padding: 45px;
     max-width: 250px;
     text-align: center;
     &__name {
@@ -38,13 +38,14 @@
         width: 100%;
         > li {
             max-width: 50px;
+            font-size: 10px;
         }
     }
     &__inputs {
-        left: -200px;
+        left: -120px;
     }
     &__outputs {
-        right: -200px;
+        right: -120px;
     }
     &__controls {
         top: -100px;

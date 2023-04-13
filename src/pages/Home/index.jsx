@@ -20,7 +20,7 @@ export const Home = () => {
     const createProject = () => {
         let title = document.getElementById("input-name-diagram").value;
         let lastID = projects.length > 0 ? projects[projects.length - 1].id : 0;
-        let newProjects = [...projects, { id: lastID + 1, title }];
+        let newProjects = [...projects, { id: lastID + 1, title, date_create: new Date() }];
         setProjects(newProjects);
         localStorage.setItem("diagrams", JSON.stringify(newProjects));
         toast.success(`Проект ${title} успешно создан`)
